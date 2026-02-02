@@ -1,7 +1,8 @@
 import os
 from flask import Flask
 from dotenv import load_dotenv
-from app.extensions import db
+from app.extensions import db, migrate
+from app.blueprints import register_blueprints
 
 load_dotenv()
 
@@ -12,9 +13,8 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
+    migrate.init_app(app, db)
 
-    @app.route('/')
-    def hello_world():
-        return {"message": "Hello World! Funcionando..."}, 200
+    register_blueprints(app)
 
     return app
