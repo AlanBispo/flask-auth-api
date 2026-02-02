@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from app.services.user_service import UserService
+from app.schemas.user_schema import users_schema
 
 user_bp = Blueprint('users', __name__)
 user_service = UserService()
@@ -15,4 +16,8 @@ def create_user():
     result, status_code = user_service.create_user(data)
     return jsonify(result), status_code
 
-
+@user_bp.route('/users', methods=['GET'])
+def get_users():
+    users = user_service.get_users()
+    
+    return users_schema.jsonify(users), 200

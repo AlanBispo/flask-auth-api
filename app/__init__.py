@@ -1,7 +1,7 @@
 import os
 from flask import Flask
 from dotenv import load_dotenv
-from app.extensions import db, migrate
+from app.extensions import db, migrate, ma
 from app.blueprints import register_blueprints
 
 load_dotenv()
@@ -14,7 +14,8 @@ def create_app():
 
     db.init_app(app)
     migrate.init_app(app, db)
-
+    ma.init_app(app)
+    
     register_blueprints(app)
 
     return app

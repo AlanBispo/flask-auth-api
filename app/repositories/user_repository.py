@@ -8,3 +8,5 @@ class UserRepository:
         db.session.commit()
         return user
 
+    def find_all(self):
+        return UserModel.query.all()
