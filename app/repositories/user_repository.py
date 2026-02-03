@@ -8,5 +8,11 @@ class UserRepository:
         db.session.commit()
         return user
 
+    def find_by_email(self, email):
+        return UserModel.query.filter_by(email=email).first()
+
     def find_all(self):
         return UserModel.query.all()
+    
+    def find_by_id(self, id):
+        return UserModel.query.filter_by(id=id).first()

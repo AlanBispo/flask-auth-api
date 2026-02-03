@@ -21,3 +21,10 @@ class UserService:
     def get_users(self):
         users = self.repository.find_all()
         return users
+    
+    def get_user_by_id(self, id):
+        user = self.repository.find_by_id(id)
+        if not user:
+            raise UserNotFoundError()
+
+        return user

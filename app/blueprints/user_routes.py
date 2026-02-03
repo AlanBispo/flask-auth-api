@@ -21,3 +21,9 @@ def get_users():
     users = user_service.get_users()
     
     return users_schema.jsonify(users), 200
+
+@user_bp.route('/user/<int:user_id>', methods=['GET'])
+def get_user_by_id(user_id):
+    user = user_service.get_user_by_id(user_id)
+    
+    return users_schema.jsonify(user), 200
