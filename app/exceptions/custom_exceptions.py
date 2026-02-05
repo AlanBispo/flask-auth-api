@@ -12,3 +12,7 @@ class EmailAlreadyExistsError(AppError):
 class UserNotFoundError(AppError):
     def __init__(self):
         super().__init__("Usuário não encontrado.", 404)
+        
+class CustomValidationError(AppError):
+    def __init__(self, messages):
+        super().__init__(messages, 400)

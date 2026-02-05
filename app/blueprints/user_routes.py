@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from app.services.user_service import UserService
-from app.schemas.user_schema import users_schema
+from app.schemas.user_schema import users_schema, user_schema
 
 user_bp = Blueprint('users', __name__)
 user_service = UserService()
@@ -13,8 +13,8 @@ def create_user():
     if not data or 'username' not in data or 'password' not in data:
         return jsonify({"error": "Dados incompletos"}), 400
 
-    result, status_code = user_service.create_user(data)
-    return jsonify(result), status_code
+    result = user_service.create_user(data)
+    return user_schema.jsonify(result), 200
 
 @user_bp.route('/users', methods=['GET'])
 def get_users():

@@ -22,12 +22,19 @@ def create_app():
 
     @app.errorhandler(AppError)
     def handle_custom_errors(error):
-        response = jsonify({"error": error.message})
-        response.status_code = error.status_code
-        return response
+        return jsonify({"error": error.message}), error.status_code
 
     @app.errorhandler(Exception)
     def handle_generic_errors(error):
-        return jsonify({"error": "Erro interno no servidor",}), 500
+        app.logger.error(f"Erro Crítico: {str(error)}", exc_info=True)
+        
+        response = {
+            "error": "Erro interno no servidor",
+            "message": str(error)
+        }
+        if not app.debug:
+            response.pop("message")
+
+        return jsonify(response), 500
 
     return app

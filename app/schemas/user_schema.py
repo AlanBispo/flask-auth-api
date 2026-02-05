@@ -11,7 +11,6 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
         model = UserModel
         load_instance = True
         include_fk = True
-        exclude = ("password",)
 
     username = fields.String(
         required=True, 
