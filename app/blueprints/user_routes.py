@@ -27,3 +27,11 @@ def get_user_by_id(user_id):
     user = user_service.get_user_by_id(user_id)
     
     return users_schema.jsonify(user), 200
+
+@user_bp.route('/user/<int:user_id>', methods=['PUT'])
+def update_user(user_id):
+    data = request.get_json()
+
+    updated_user = user_service.update_user(user_id, data)
+    
+    return user_schema.jsonify(updated_user), 200

@@ -35,3 +35,25 @@ class UserService:
             raise UserNotFoundError()
 
         return user
+    
+    def update_user(self, user_id: int, data: dict):
+        # busca o usuário
+        user = self.repository.find_by_id(user_id)
+        if not user:
+            raise UserNotFoundError()
+
+        # se o e-mail mudou, verifica se o novo já existe
+        if 'email' in data:
+            existing_user = self.repository.find_by_email(data['email'])
+            if existing_user and existing_user.id != user_id:
+                raise EmailAlreadyExistsError()
+            
+        try:
+            updated_data = user_schema.load(data, instance=user, partial=True)
+        except ValidationError as err:
+            raise CustomValidationError(err.messages)
+
+        if 'password' in data:
+            user.password = generate_password_hash(data['password'])
+
+        return self.repository.save_update(user)

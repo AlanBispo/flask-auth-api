@@ -53,3 +53,9 @@ class UserRepository:
             Optional[UserModel]: O objeto usuário se encontrado, caso contrário, None.
         """
         return UserModel.query.filter_by(id=id).first()
+    
+    def save_update(self, user: UserModel) -> UserModel:
+        """Salva alterações em um objeto já existente."""
+        db.session.add(user)
+        db.session.commit()
+        return user
