@@ -30,6 +30,8 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
         load_only=True, 
         validate=[validate.Length(min=8, error="A senha deve ter pelo menos 8 caracteres.")]
     )
+    id = fields.Int(dump_only=True)
+    created_at = fields.DateTime(dump_only=True)
 
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
