@@ -7,6 +7,7 @@ from app.hooks import register_hooks
 from flask import jsonify
 from app.exceptions.custom_exceptions import AppError
 from werkzeug.exceptions import HTTPException
+from flask_cors import CORS
 
 load_dotenv()
 
@@ -16,6 +17,9 @@ def create_app():
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    # CORS
+    CORS(app, resources={r"/*": {"origins": "*"}})
 
     db.init_app(app)
     migrate.init_app(app, db)
