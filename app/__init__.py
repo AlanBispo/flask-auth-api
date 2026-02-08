@@ -1,7 +1,7 @@
 import os
 from flask import Flask
 from dotenv import load_dotenv
-from app.extensions import db, migrate, ma
+from app.extensions import db, migrate, ma, jwt
 from app.blueprints import register_blueprints
 from app.hooks import register_hooks
 from flask import jsonify
@@ -17,13 +17,14 @@ def create_app():
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+    app.config['JWT_TOKEN_LOCATION'] = ['headers']
     # CORS
     CORS(app, resources={r"/*": {"origins": "*"}})
 
     db.init_app(app)
     migrate.init_app(app, db)
     ma.init_app(app)
+    jwt.init_app(app)
     
     register_hooks(app)
     register_blueprints(app)
