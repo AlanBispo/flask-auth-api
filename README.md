@@ -34,6 +34,7 @@ API RESTful para gerenciamento de usuários e autenticação, construída com Py
    ```
 3. Suba os containers:
    `docker compose up -d --build`
+   
 A API estará rodando em http://localhost:5001.
 
 ## 📍 Endpoints Principais
