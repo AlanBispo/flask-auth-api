@@ -6,6 +6,8 @@
 
 API RESTful para gerenciamento de usuários e autenticação, construída com Python e Flask. Este projeto serve como o back-end para o [React Auth Dashboard](https://github.com/AlanBispo/react-auth-dashboard).
 
+Esta API é consumida em: https://react-auth-dashboard-kappa.vercel.app
+
 ## 🚀 Tecnologias
 
 - **Framework:** Flask
